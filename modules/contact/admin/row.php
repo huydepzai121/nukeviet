@@ -13,6 +13,7 @@ if (!defined('NV_IS_FILE_ADMIN')) {
 }
 
 $id = $nv_Request->get_int('id', 'post,get', 0);
+$set_active_op = 'department';
 
 if ($id) {
     $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department WHERE id=' . $id;
