@@ -584,9 +584,7 @@ if (empty($error)) {
                 }
 
                 // Check valid folder structure nukeviet (modules, themes, uploads)
-                $folder = explode('/', $listFiles[$i]['filename']);
-
-                if (trim($listFiles[$i]['filename']) != 'config.ini' and (($info['exttype'] == 'theme' and $folder[0] != $info['extname']) or ($info['exttype'] != 'theme' and !in_array($folder[0], $arraySysOption['allowfolder']) and (isset($folder[1]) and !in_array($folder[0] . '/' . $folder[1], $arraySysOption['allowfolder']))) or ($folder[0] == 'assets' and in_array(nv_getextension($listFiles[$i]['filename']), $arraySysOption['forbidExt'])))) {
+                if (!check_structure($listFiles[$i], $arraySysOption, $info)) {
                     $info['invaildnum']++;
                     $info['filelist'][$j]['class'][] = $info['classcfg']['invaild'];
                     $info['checkresult'] = 'fail';
