@@ -210,6 +210,7 @@ $lang_module['openid_del'] = 'Xóa chọn';
 $lang_module['openid_active_confirm_info'] = 'OpenID của bạn chưa được đăng ký trên website này, nhưng email %s đã được sử dụng để đăng ký thành viên.<br />Nếu tài khoản sử dụng email này là của bạn, hãy xác nhận bằng cách khai báo mật khẩu đăng nhập.<br />Nếu mật khẩu được khẳng định, tài khoản sẽ được kích hoạt và kể từ lần đăng nhập sau<br />bạn sẽ không phải thực hiện thao tác này';
 $lang_module['openid_activate_account'] = 'Kích hoạt tài khoản bằng OpenID';
 $lang_module['openid_is_exists'] = 'Rất tiếc là OpenID này đã được sử dụng. Hãy thử chọn một nhà cung cấp khác';
+$lang_module['openid_is_wrongdata'] = 'Dữ liệu không đúng, xin vui lòng thử lại';
 $lang_module['openid_add_new'] = 'Thêm OpenID mới vào tài khoản của bạn';
 $lang_module['email_is_exists'] = 'Rất tiếc là email của OpenID này đã được sử dụng. Hãy thử chọn một nhà cung cấp khác';
 $lang_module['error_update_users_info'] = 'Xin lỗi: hệ thống không cập nhật được thông tin thành viên của bạn, xin liên hệ với quản trị site để được hướng dẫn.';

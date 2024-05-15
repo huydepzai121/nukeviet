@@ -210,6 +210,7 @@ $lang_module['openid_del'] = 'Delete';
 $lang_module['openid_active_confirm_info'] = 'Your OpenID can be used on this website,<br />but email %s was used by another account.<br />If you are owner of this account,<br />please provide your password.<br />If your password match,<br />your account will activate on next login<br />';
 $lang_module['openid_activate_account'] = 'Activate account by OpenID';
 $lang_module['openid_is_exists'] = 'This OpenID was already taken.<br />Please choose another OpenID';
+$lang_module['openid_is_wrongdata'] = 'The data is incorrect, please try again';
 $lang_module['openid_add_new'] = 'Add another OpenID to your account';
 $lang_module['email_is_exists'] = 'Your OpenID\'s email was used.<br />Please choose another OpenID';
 $lang_module['error_update_users_info'] = 'Error: System cannot update your user infomation, please contact site admin.';
