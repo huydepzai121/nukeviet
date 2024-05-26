@@ -55,7 +55,7 @@ if (!empty($_GET['code'])) {
     } else {
         $attribs = ['result' => 'notlogin'];
     }
-    $nv_Request->set_Session('openid_attribs', serialize($attribs));
+    $nv_Request->set_Session('openid_attribs', json_encode($attribs));
 
     $op_redirect = (defined('NV_IS_USER')) ? 'editinfo/openid' : 'login';
     $nv_redirect_session = $nv_Request->get_title('nv_redirect_' . $module_data, 'session', '');
@@ -67,7 +67,7 @@ if (!empty($_GET['code'])) {
         $nv_redirect = '&nv_redirect=' . $nv_redirect;
     }
     $nv_redirect .= '&t=' . NV_CURRENTTIME;
-    
+
     $nv_Request->unset_request('nv_redirect_' . $module_data, 'session');
     nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op_redirect . '&server=' . $server . '&result=1' . $nv_redirect);
 } else {

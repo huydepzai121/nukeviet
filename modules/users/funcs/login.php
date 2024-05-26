@@ -186,7 +186,10 @@ if (defined('NV_OPENID_ALLOWED') and $nv_Request->isset_request('server', 'get')
     }
 
     $attribs = $nv_Request->get_string('openid_attribs', 'session', '');
-    $attribs = !empty($attribs) ? unserialize($attribs) : [];
+    $attribs = !empty($attribs) ? json_decode($attribs, true) : [];
+    if (!is_array($attribs)) {
+        $attribs = [];
+    }
 
     if (empty($attribs) or $attribs['server'] != $server) {
         opidr([
@@ -285,7 +288,7 @@ if (defined('NV_OPENID_ALLOWED') and $nv_Request->isset_request('server', 'get')
                 'mess' => $lang_module['login_no_active']
             ]);
         }
-        
+
         /**
          * Nếu tài khoản trùng email này có mật khẩu và chức năng tự động gán Oauh bị tắt
          * thì yêu cầu nhập mật khẩu xác nhận

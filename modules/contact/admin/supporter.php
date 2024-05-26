@@ -7,7 +7,7 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Sun, 08 Jan 2017 01:38:09 GMT
  */
-if (! defined('NV_IS_FILE_ADMIN'))
+if (!defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
 // change status
@@ -40,13 +40,13 @@ if ($nv_Request->isset_request('ajax_action', 'post')) {
         $result = $db->query($sql);
         $weight = 0;
         while ($row = $result->fetch()) {
-            ++ $weight;
+            ++$weight;
             if ($weight == $new_vid)
-                ++ $weight;
+                ++$weight;
             $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_supporter SET weight=' . $weight . ' WHERE id=' . $row['id'] . ' AND departmentid=' . $departmentid;
             $db->query($sql);
         }
-        $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_supporter SET weight=' . $new_vid . ' WHERE id=' . $id  . ' AND departmentid=' . $departmentid;
+        $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_supporter SET weight=' . $new_vid . ' WHERE id=' . $id . ' AND departmentid=' . $departmentid;
         $db->query($sql);
         $content = 'OK_' . $id;
     }
@@ -72,7 +72,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
             $sql = 'SELECT id, weight FROM ' . NV_PREFIXLANG . '_' . $module_data . '_supporter WHERE weight >' . $weight . ' AND departmentid=' . $departmentid;
             $result = $db->query($sql);
             while (list ($id, $weight) = $result->fetch(3)) {
-                $weight --;
+                $weight--;
                 $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_supporter SET weight=' . $weight . ' WHERE id=' . intval($id)) . ' AND departmentid=' . $departmentid;
             }
         }
@@ -81,42 +81,40 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     }
 }
 
-$array_data = array();
-$error = array();
-
 $sql = 'SELECT id, full_name FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department';
 $array_department = $nv_Cache->db($sql, 'id', $module_name);
+if (empty($array_department)) {
+    nv_redirect_location(NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=row');
+}
 
-if (! empty($array_department)) {
-    $departmentid = $nv_Request->get_int('departmentid', 'get', 0);
+$array_data = $error = [];
+$departmentid = $nv_Request->get_int('departmentid', 'get', 0);
+if (empty($departmentid) or !isset($array_department[$departmentid])) {
+    $departmentid = array_keys($array_department)[0];
+}
 
-    if(empty($departmentid)){
-        $departmentid = array_keys($array_department)[0];
-    }
+$per_page = 20;
+$page = $nv_Request->get_int('page', 'post,get', 1);
+$db->sqlreset()
+    ->select('COUNT(*)')
+    ->from(NV_PREFIXLANG . '_' . $module_data . '_supporter')
+    ->where('departmentid=' . $departmentid);
 
-    $per_page = 20;
-    $page = $nv_Request->get_int('page', 'post,get', 1);
-    $db->sqlreset()
-        ->select('COUNT(*)')
-        ->from(NV_PREFIXLANG . '_' . $module_data . '_supporter')
-        ->where('departmentid=' . $departmentid);
+$sth = $db->prepare($db->sql());
 
-    $sth = $db->prepare($db->sql());
+$sth->execute();
+$num_items = $sth->fetchColumn();
 
-    $sth->execute();
-    $num_items = $sth->fetchColumn();
+$db->select('*')
+    ->order('weight ASC')
+    ->limit($per_page)
+    ->offset(($page - 1) * $per_page);
+$sth = $db->prepare($db->sql());
 
-    $db->select('*')
-        ->order('weight ASC')
-        ->limit($per_page)
-        ->offset(($page - 1) * $per_page);
-    $sth = $db->prepare($db->sql());
+$sth->execute();
 
-    $sth->execute();
-
-    while ($view = $sth->fetch()) {
-        $array_data[] = $view;
-    }
+while ($view = $sth->fetch()) {
+    $array_data[] = $view;
 }
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file);
@@ -130,14 +128,14 @@ $xtpl->assign('URL_ADD_SUPPORTER', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VAR
 
 $base_url = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
 $generate_page = nv_generate_page($base_url, $num_items, $per_page, $page);
-if (! empty($generate_page)) {
+if (!empty($generate_page)) {
     $xtpl->assign('NV_GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
 }
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
-if (! empty($array_data)) {
+if (!empty($array_data)) {
     foreach ($array_data as $view) {
-        for ($i = 1; $i <= $num_items; ++ $i) {
+        for ($i = 1; $i <= $num_items; ++$i) {
             $xtpl->assign('WEIGHT', array(
                 'key' => $i,
                 'title' => $i,
@@ -153,7 +151,7 @@ if (! empty($array_data)) {
     }
 }
 
-if (! empty($array_department)) {
+if (!empty($array_department)) {
     foreach ($array_department as $department) {
         $department['selected'] = $department['id'] == $departmentid ? 'selected="selected"' : '';
         $xtpl->assign('DEPARTMENT', $department);

@@ -210,6 +210,7 @@ $lang_module['openid_del'] = 'Supprimer';
 $lang_module['openid_active_confirm_info'] = 'Votre OpenID n\'est pas enregistré sur ce site Web, mais email a été utilisé pour enregistrer.<br /> Si le compte utilise cet email à vous, le certifiez en donnant le mot de passe.<br />Si  le mot de passe est assuré, à la fois suivante vous ne devez pas refaire ces actions';
 $lang_module['openid_activate_account'] = 'Activer le compte avec OpenID';
 $lang_module['openid_is_exists'] = 'Cet OpenID a été utilisé.<br />Essayez un autre fournisseur';
+$lang_module['openid_is_wrongdata'] = 'Les données sont incorrectes, veuillez réessayer';
 $lang_module['openid_add_new'] = 'Ajouter un nouveau OpenID à votre compte';
 $lang_module['email_is_exists'] = 'E-mail de cet OpenID a été utilisé.<br />Essayez un autre fournisseur';
 $lang_module['error_update_users_info'] = 'Désolé: Le système n\'arrive pas à mettre à jour vos informations, contactez-vous à l\'administration du site pour avoir le guide';
