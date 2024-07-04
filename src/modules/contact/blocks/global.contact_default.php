@@ -61,7 +61,7 @@ if (!nv_function_exists('nv_contact_default_info')) {
                 $items = [];
                 foreach ($default_department['phone'] as $num) {
                     if (count($num) == 2) {
-                        $items[] = '<a href="tel:' . $num[1] . '">' . $num[0] . '</a>';
+                        $items[] = '<a href="tel:' . $num[1] . '" aria-label="' . $num[0] . '">' . $num[0] . '</a>';
                     } else {
                         $items[] = $num[0];
                     }
@@ -77,7 +77,7 @@ if (!nv_function_exists('nv_contact_default_info')) {
                 $emails = array_map('trim', explode(',', $default_department['email']));
                 $items = [];
                 foreach ($emails as $email) {
-                    $items[] = '<a href="' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=contact&amp;' . NV_OP_VARIABLE . '=' . $default_department['alias'] . '">' . $email . '</a>';
+                    $items[] = '<a href="' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=contact&amp;' . NV_OP_VARIABLE . '=' . $default_department['alias'] . '" aria-label="' . $email . '">' . $email . '</a>';
                 }
                 $xtpl->assign('CD', [
                     'icon' => 'fa-envelope',
